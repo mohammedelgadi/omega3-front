@@ -1,8 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { Selector as CommandeSelector } from "../../redux/Commande";
+import {
+  Selector as CommandeSelector,
+  ActionsCreator as CommandeActionCreator
+} from "../../redux/Commande";
 import { Commande } from "../../model/Commande";
+import Types from "types";
+import CommandeList from "../../component/private/commande/commandeList";
 
 interface Props {
   commandes: Commande[];
@@ -15,12 +20,12 @@ class PageAccueil extends React.Component<Props> {
     loadCommandes();
   }
   render() {
-    console.log(this.props.commandes);
-    return <div>Test</div>;
+    const { commandes } = this.props;
+    return <CommandeList commandes={commandes} />;
   }
 }
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: Types.StateType) => {
   return {
     commandes: CommandeSelector.getCommandes(state)
   };
@@ -28,7 +33,8 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    loadCommandes: () => dispatch({ type: "LOAD COMMANDE" })
+    loadCommandes: () =>
+      dispatch(CommandeActionCreator.loadCommandesAsync.request())
   };
 };
 

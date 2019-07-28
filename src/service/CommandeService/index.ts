@@ -1,9 +1,12 @@
 import { Commande } from "../../model/Commande";
-import axios from "axios";
-import { reject } from "q";
 
-export class CommandeService {
-  public getCommandes = (): Promise<Commande[]> => {
+export interface Api {
+  getCommandes(): Promise<Commande[]>;
+  getCommandeById(id: number): Promise<Commande>;
+}
+
+export const create = axios => {
+  const getCommandes = (): Promise<Commande[]> => {
     return new Promise((resolve, reject) =>
       axios
         .get("http://localhost:8080/api/commandes")
@@ -12,7 +15,7 @@ export class CommandeService {
     );
   };
 
-  public getCommandeById = (id: number): Promise<Commande> => {
+  const getCommandeById = (id: number): Promise<Commande> => {
     return new Promise((resolve, reject) =>
       axios
         .get(`http://localhost:8080/api/commande/${id}`)
@@ -20,4 +23,9 @@ export class CommandeService {
         .catch(error => reject(error))
     );
   };
-}
+
+  return {
+    getCommandes,
+    getCommandeById
+  };
+};

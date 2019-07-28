@@ -1,24 +1,18 @@
 import React from "react";
 import "./App.css";
 import PageAccueil from "./container/accueil/PageAccueil";
-import { createStore, compose, applyMiddleware } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { rootReducer } from "./redux/rootReducer";
 import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
+import { applicationSaga } from "./saga";
+import createSagaMiddleware from "@redux-saga/core";
 
-let initialStore = {};
-
-const logger = (store: any) => {
-  return (next: any) => {
-    return (action: any) => {
-      return next(action);
-    };
-  };
-};
+const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(logger))
+  composeWithDevTools(applyMiddleware(sagaMiddleware))
 );
 
 class App extends React.Component {
@@ -32,3 +26,5 @@ class App extends React.Component {
 }
 
 export default App;
+
+sagaMiddleware.run(applicationSaga);
