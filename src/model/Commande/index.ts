@@ -1,4 +1,10 @@
 export interface Commande {
   id: number;
-  titre: string;
+  title: string;
+}
+
+export interface CommandeDetail {
+  id: number;
+  title: string;
+  detail: string;
 }

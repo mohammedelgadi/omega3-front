@@ -11,7 +11,9 @@ import CommandeList from "../../component/private/commande/commandeList";
 
 interface Props {
   commandes: Commande[];
+  fetchInfo: Types.FetchInfo;
   loadCommandes(): void;
+  openDetail(commande: Commande): void;
 }
 
 class PageAccueil extends React.Component<Props> {
@@ -20,21 +22,31 @@ class PageAccueil extends React.Component<Props> {
     loadCommandes();
   }
   render() {
-    const { commandes } = this.props;
-    return <CommandeList commandes={commandes} />;
+    const { commandes, fetchInfo, openDetail } = this.props;
+    return (
+      <CommandeList
+        commandes={commandes}
+        fetchInfo={fetchInfo}
+        onOpenDetail={openDetail}
+      />
+    );
   }
 }
 
 const mapStateToProps = (state: Types.StateType) => {
   return {
-    commandes: CommandeSelector.getCommandes(state)
+    commandes: CommandeSelector.getCommandes(state),
+    fetchInfo: CommandeSelector.getCommandesFetchInfo(state)
   };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     loadCommandes: () =>
-      dispatch(CommandeActionCreator.loadCommandesAsync.request())
+      dispatch(CommandeActionCreator.loadCommandesAsync.request()),
+
+    openDetail: (commande: Commande) =>
+      dispatch(CommandeActionCreator.openCommandeDetailAsync.request(commande))
   };
 };
 
