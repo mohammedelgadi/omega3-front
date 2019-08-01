@@ -1,5 +1,5 @@
 import React from "react";
-import { Commande } from "../../../../model/Commande";
+import { Commande } from "../../../../model/commande";
 import Types from "types";
 
 interface IProps {

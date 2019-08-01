@@ -1,4 +1,10 @@
-import commandeReducer from "./Commande";
+import commandeReducer from "./commande";
 import { combineReducers } from "redux";
+import { connectRouter } from "connected-react-router";
+import { createBrowserHistory } from "history";
 
-export const rootReducer = combineReducers({ commande: commandeReducer });
+export const rootReducer = history =>
+  combineReducers({
+    commande: commandeReducer,
+    router: connectRouter(history)
+  });

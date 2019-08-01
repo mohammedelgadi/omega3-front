@@ -1,14 +1,16 @@
 import Types from "types";
-import { createAsyncAction, getType } from "typesafe-actions";
-import { Commande, CommandeDetail } from "../../model/Commande";
+import { createAsyncAction, getType, ActionType } from "typesafe-actions";
+import { Commande, CommandeDetail } from "../../model/commande";
 
 interface IState {
   commandes?: Commande[];
+  commandeDetail?: CommandeDetail;
   fetchInfo: Types.FetchInfo;
 }
 
 const intialState: IState = {
   commandes: undefined,
+  commandeDetail: undefined,
   fetchInfo: {
     fetching: false,
     error: undefined
@@ -45,7 +47,10 @@ export const Selector = {
   getCommandesFetchInfo
 };
 
-const reducer = (state = intialState, action: any): IState => {
+const reducer = (
+  state = intialState,
+  action: ActionType<typeof ActionsCreator>
+): IState => {
   switch (action.type) {
     case getType(loadCommandesAsync.request):
       console.log("Load commande action running");
@@ -77,13 +82,32 @@ const reducer = (state = intialState, action: any): IState => {
           error: action.payload
         }
       };
-    case getType(loadCommandesAsync.request):
+    case getType(openCommandeDetailAsync.request):
       console.log("test");
       return {
         ...state,
         fetchInfo: {
           fetching: true,
           error: undefined
+        }
+      };
+    case getType(openCommandeDetailAsync.success):
+      console.log("test");
+      return {
+        ...state,
+        commandeDetail: action.payload,
+        fetchInfo: {
+          fetching: false,
+          error: undefined
+        }
+      };
+    case getType(openCommandeDetailAsync.failure):
+      console.log("test");
+      return {
+        ...state,
+        fetchInfo: {
+          fetching: false,
+          error: action.payload
         }
       };
   }

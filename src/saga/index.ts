@@ -1,5 +1,5 @@
 import { takeLatest } from "redux-saga/effects";
-import { ActionsCreator as CommandeActionCreator } from "../redux/Commande";
+import { ActionsCreator as CommandeActionCreator } from "../redux/commande";
 import { loadCommandes, loadCommandeDetail } from "./commande";
 import api from "../service";
 

@@ -1,7 +1,8 @@
 import { call, put } from "redux-saga/effects";
+import { push } from "react-router-redux";
 import { Api } from "../../service";
-import { ActionsCreator as CommandeActionCreator } from "../../redux/Commande";
-import { CommandeDetail } from "../../model/Commande";
+import { ActionsCreator as CommandeActionCreator } from "../../redux/commande/index";
+import { CommandeDetail } from "../../model/commande";
 
 export function* loadCommandes(api: Api, action) {
   try {
@@ -21,5 +22,5 @@ export function* loadCommandeDetail(api: Api, action) {
   console.log("lancement de la saga", "loadCommandeDetail");
   console.log(action.payload);
   yield put(CommandeActionCreator.openCommandeDetailAsync.success(detail));
-  yield put(push("/login"));
+  yield put(push("/commande-detail"));
 }

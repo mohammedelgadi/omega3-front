@@ -1,4 +1,4 @@
-import { Commande } from "../../model/Commande";
+import { Commande } from "../../model/commande";
 
 export interface Api {
   getCommandes(): Promise<Commande[]>;

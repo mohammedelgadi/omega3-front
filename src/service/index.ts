@@ -1,7 +1,7 @@
 import {
   create as createCommandeService,
   Api as ApiCommande
-} from "./CommandeService";
+} from "./commandeService";
 
 import axios from "axios";
 

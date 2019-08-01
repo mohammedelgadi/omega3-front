@@ -4,8 +4,8 @@ import { Dispatch } from "redux";
 import {
   Selector as CommandeSelector,
   ActionsCreator as CommandeActionCreator
-} from "../../redux/Commande";
-import { Commande } from "../../model/Commande";
+} from "../../redux/commande";
+import { Commande } from "../../model/commande";
 import Types from "types";
 import CommandeList from "../../component/private/commande/commandeList";
 
